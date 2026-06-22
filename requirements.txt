@@ -11,3 +11,4 @@ pydantic
 faker
 pytest
 psycopg2-binary
+xgboost
