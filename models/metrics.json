@@ -1,0 +1,88 @@
+{
+  "test_metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "roc_auc": 1.0,
+    "threshold": 0.5,
+    "n_test_samples": 20000,
+    "n_fraud_detected": 1000,
+    "n_actual_fraud": 1000,
+    "confusion_matrix": [
+      [
+        19000,
+        0
+      ],
+      [
+        0,
+        1000
+      ]
+    ]
+  },
+  "cv_metrics": {
+    "roc_auc": {
+      "mean": 0.9999998684210526,
+      "std": 2.6315789471986765e-07
+    },
+    "f1": {
+      "mean": 0.9994999999023436,
+      "std": 0.0004677072646958621
+    },
+    "precision": {
+      "mean": 0.9995003121098627,
+      "std": 0.000611990379708906
+    },
+    "recall": {
+      "mean": 0.9995,
+      "std": 0.0006123724356957815
+    }
+  },
+  "feature_importances": {
+    "amount_deviation_from_average": 0.637182891368866,
+    "amount_to_avg_ratio": 0.2746456563472748,
+    "transaction_velocity": 0.031998004764318466,
+    "daily_transaction_count": 0.021404728293418884,
+    "unusual_location_flag": 0.016681378707289696,
+    "composite_risk_score": 0.009481126442551613,
+    "transaction_amount": 0.0037254521157592535,
+    "transaction_hour": 0.0009330113534815609,
+    "unusual_time_flag": 0.0008441562531515956,
+    "device_change_flag": 0.0007432367419824004,
+    "avg_transaction_amount": 0.0006112135015428066,
+    "merchant_category_encoded": 0.0003867610648740083,
+    "log_avg_transaction_amount": 0.0002526877506170422,
+    "transaction_month": 0.00023023673566058278,
+    "monthly_transaction_count": 0.00020880367083009332,
+    "weekly_transaction_count": 0.0001816794538171962,
+    "transaction_day_of_week": 0.00016917227185331285,
+    "transaction_type_encoded": 0.0001656530366744846,
+    "log_transaction_amount": 0.00015410974447149783,
+    "high_velocity_flag": 0.0,
+    "transaction_is_weekend": 0.0
+  },
+  "feature_columns": [
+    "transaction_amount",
+    "avg_transaction_amount",
+    "daily_transaction_count",
+    "weekly_transaction_count",
+    "monthly_transaction_count",
+    "amount_deviation_from_average",
+    "transaction_velocity",
+    "transaction_hour",
+    "unusual_time_flag",
+    "unusual_location_flag",
+    "device_change_flag",
+    "transaction_type_encoded",
+    "merchant_category_encoded",
+    "amount_to_avg_ratio",
+    "log_transaction_amount",
+    "log_avg_transaction_amount",
+    "composite_risk_score",
+    "high_velocity_flag",
+    "transaction_day_of_week",
+    "transaction_is_weekend",
+    "transaction_month"
+  ],
+  "model_path": "models\\fraud_model.joblib"
+}
