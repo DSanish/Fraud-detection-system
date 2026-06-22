@@ -10,3 +10,4 @@ python-dotenv
 pydantic
 faker
 pytest
+psycopg2-binary
