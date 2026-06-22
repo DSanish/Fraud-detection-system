@@ -139,12 +139,29 @@ async def health_check(db: Session = Depends(get_db)) -> HealthResponse:
     )
 
 
-@router.get("/metrics", response_model=MetricsResponse, tags=["Model"])
-async def get_model_metrics() -> MetricsResponse:
-    """Return model performance metrics from last training run."""
-    m = prediction_service.get_metrics()
-    return MetricsResponse(**m)
+@router.get("/metrics", tags=["Model"])
+async def get_model_metrics(db: Session = Depends(get_db)):
+    """
+    Dashboard Metrics
+    """
 
+    stats = crud.get_dashboard_stats(db)
+
+    model = prediction_service.get_metrics()
+
+    return {
+        "total_transactions": stats["total_transactions"],
+        "fraud_count": stats["fraud_count"],
+        "fraud_rate": stats["fraud_rate"],
+
+        "accuracy": model["accuracy"],
+        "precision": model["precision"],
+        "recall": model["recall"],
+        "f1_score": model["f1_score"],
+        "roc_auc": model["roc_auc"],
+
+        "model_version": model["model_version"]
+    }
 
 @router.get("/transactions", tags=["Data"])
 async def list_transactions(

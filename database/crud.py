@@ -91,29 +91,31 @@ def get_transactions_by_risk(db: Session, risk_level: str, limit: int = 50) -> L
     )
 
 
-def get_dashboard_stats(db: Session) -> Dict[str, Any]:
-    """Return aggregated statistics for the dashboard overview."""
-    total = db.query(func.count(Transaction.transaction_id)).scalar() or 0
-    fraud_count = db.query(func.count(Transaction.transaction_id)).filter(Transaction.prediction == "Fraud").scalar() or 0
-    total_volume = db.query(func.sum(Transaction.amount)).scalar() or 0.0
-    avg_amount = db.query(func.avg(Transaction.amount)).scalar() or 0.0
+def get_dashboard_stats(db: Session):
 
-    last_24h = datetime.utcnow() - timedelta(hours=24)
-    recent_count = db.query(func.count(Transaction.transaction_id)).filter(Transaction.created_at >= last_24h).scalar() or 0
-    recent_fraud = (
-        db.query(func.count(Transaction.transaction_id))
-        .filter(Transaction.created_at >= last_24h, Transaction.prediction == "Fraud")
-        .scalar() or 0
+    total = db.query(Transaction).count()
+
+    fraud = (
+        db.query(Transaction)
+        .filter(Transaction.prediction == "Fraud")
+        .count()
     )
+
+    avg_amount = db.query(func.avg(Transaction.amount)).scalar() or 0
+
+    total_volume = db.query(func.sum(Transaction.amount)).scalar() or 0
+
+    fraud_rate = 0
+
+    if total > 0:
+        fraud_rate = round((fraud / total) * 100, 2)
 
     return {
         "total_transactions": total,
-        "fraud_count": fraud_count,
-        "fraud_rate": round((fraud_count / total * 100) if total > 0 else 0.0, 2),
-        "total_volume": round(float(total_volume), 2),
-        "avg_transaction_amount": round(float(avg_amount), 2),
-        "last_24h_transactions": recent_count,
-        "last_24h_fraud": recent_fraud,
+        "fraud_count": fraud,
+        "fraud_rate": fraud_rate,
+        "avg_transaction_amount": round(avg_amount,2),
+        "total_volume": round(total_volume,2)
     }
 
 

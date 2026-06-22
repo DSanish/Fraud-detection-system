@@ -63,7 +63,7 @@ def _get_config(key: str, default: str = "") -> str:
     return os.environ.get(key, default)
 
 
-API_BASE_URL: str = _get_config("FRAUD_API_BASE_URL", "http://localhost:8000").rstrip("/")
+API_BASE_URL: str = _get_config("FRAUD_API_BASE_URL", "https://fraud-detection-system-p2jr.onrender.com").rstrip("/")
 API_KEY: str = _get_config("FRAUD_API_KEY", "")
 API_TIMEOUT: int = int(_get_config("FRAUD_API_TIMEOUT", "10"))
 
