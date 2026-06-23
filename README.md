@@ -362,5 +362,12 @@ LinkedIn
 https://www.linkedin.com/in/anish-kumar-072022275/
 
 ---
+## Docker Support
+
+Run the complete application using Docker Compose.
+
+```bash
+docker compose up --build
+
 
 # ⭐ If you like this project, don't forget to Star this repository.
